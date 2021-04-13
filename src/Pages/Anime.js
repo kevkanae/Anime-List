@@ -1,9 +1,9 @@
+import MainComponent from "../AnimePageCompoments/Main";
+
 const AnimeComponent = () => {
     return (
         <>
-            <p>
-                Anime
-            </p>
+            <MainComponent/>
         </>
     )
 }

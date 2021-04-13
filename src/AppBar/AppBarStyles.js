@@ -27,11 +27,6 @@ export const useAppBarStyles = makeStyles((theme) => ({
     link: {
         textDecoration: "none",
     },
-    menu: {
-        "& .MuiPaper-root": {
-            backgroundColor: "#f7d9d9"
-        }
-    },
     switchBase: {
         color: '#f25287',
         '&$checked': {

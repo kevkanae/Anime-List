@@ -1,9 +1,8 @@
-import {useAppBarStyles} from '../Styles/AppBarStyles'
+import {useAppBarStyles} from './AppBarStyles'
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import {Link, useHistory} from "react-router-dom";
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import {useState} from 'react'
@@ -11,17 +10,9 @@ import {useState} from 'react'
 const MyAppBar = () => {
     const classes = useAppBarStyles();
     const history = useHistory();
-    const [anchorEl, setAnchorEl] = useState(null);
     const [state, setState] = useState({
         isChecked: false,
     });
-    const screenWidth = useMediaQuery('(min-width:600px)');
-    const onClickHandler = (event) => {
-        setAnchorEl(event.currentTarget);
-    }
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
     const handleChange = (event) => {
         event.target.checked ? history.push("/manga") : history.push("/")
         setState({...state, [event.target.name]: event.target.checked});
