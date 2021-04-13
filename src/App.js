@@ -1,25 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import MyAppBar from "./Components/AppBar";
+import {BrowserRouter, Route} from "react-router-dom";
+import AnimeComponent from "./Pages/Anime";
+import MangaComponent from "./Pages/Manga";
+import {useEffect} from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    useEffect(() => {
+        document.body.style.backgroundColor = '#d8e3e7';
+    }, [])
+    return (
+        <div>
+            <BrowserRouter>
+                <MyAppBar/>
+                <Route exact path={"/"} component={AnimeComponent}/>
+                <Route path={"/manga"} component={MangaComponent}/>
+            </BrowserRouter>
+        </div>
+    );
 }
 
 export default App;
