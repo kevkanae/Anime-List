@@ -4,14 +4,9 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import {Link, useHistory} from "react-router-dom";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import {Menu, MenuItem} from '@material-ui/core';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import {useState} from 'react'
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
 
 const MyAppBar = () => {
     const classes = useAppBarStyles();
@@ -42,23 +37,10 @@ const MyAppBar = () => {
                                 <Typography style={!state.isChecked ? {color: "#f25287"} : {color: '#276678'}}
                                             className={classes.title}>{!state.isChecked ? 'A N I M E' : 'M A N G A'}
                                 </Typography>
-                                <div className={classes.search}>
-                                    <div className={classes.searchIcon}>
-                                        <SearchIcon/>
-                                    </div>
-                                    <InputBase
-                                        placeholder="Search…"
-                                        classes={{
-                                            root: classes.inputRoot,
-                                            input: classes.inputInput,
-                                        }}
-                                        inputProps={{'aria-label': 'search'}}
-                                    />
-                                </div>
                             </div>
                         </Link>
                         <div className={classes.grow}/>
-                        {screenWidth ? <div className={classes.div}>
+                        <div className={classes.div}>
                             <FormControlLabel
                                 control={
                                     <Switch
@@ -72,26 +54,13 @@ const MyAppBar = () => {
                                     />
                                 }
                                 label="Manga"
-                                style={{color:'#f25287'}}
+                                style={!state.isChecked ? {color: "#f25287"} : {color: '#276678'}}
                             />
-                        </div> : <IconButton aria-label={'Menu'} onClick={onClickHandler}>
-                            <MenuIcon style={{color: '#f25287'}}/>
-                        </IconButton>}
+                        </div>
                     </Toolbar>
                 </AppBar>
             </div>
             <Toolbar/>
-            <Menu
-                className={classes.menu}
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-            >
-                <MenuItem>A</MenuItem>
-                <MenuItem>A</MenuItem>
-            </Menu>
         </>
     );
 };
