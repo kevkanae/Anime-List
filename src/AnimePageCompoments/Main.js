@@ -8,6 +8,8 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { tabList } from "./Constants/TabList";
+import Tiles from "./Components/AnimeListTile";
+import { Scrollbars } from "react-custom-scrollbars";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,12 +48,12 @@ export default function MainComponent() {
   const classes = useMainStyles();
   const [value, setValue] = useState(0);
   const [currentTab, setTab] = useState("tv");
+  const [array, setAPIArray] = useState([]);
 
   useEffect(() => {
     const url = `https://api.jikan.moe/v3/top/anime/1/${currentTab}`;
-    console.log(url);
     axios.get(url).then((res) => {
-      console.log(res.data["top"]);
+      setAPIArray(res.data["top"]);
     });
   }, [currentTab]);
 
@@ -79,28 +81,26 @@ export default function MainComponent() {
             aria-label="simple tabs example"
           >
             {tabList.map((namae, index) => {
-              return <Tab label={namae.name} {...a11yProps(index)} />;
+              return (
+                <Tab key={index} label={namae.name} {...a11yProps(index)} />
+              );
             })}
           </Tabs>
         </AppBar>
-        <TabPanel value={value} index={0}>
-          Item One
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Item Three
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          Item One
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          Item Two
-        </TabPanel>
-        <TabPanel value={value} index={5}>
-          Item Three
-        </TabPanel>
+        {tabList.map((namae, index) => {
+          return (
+            <Scrollbars>
+              <TabPanel
+                className={classes.panel}
+                key={index}
+                value={value}
+                index={index}
+              >
+                <Tiles arrayData={array} />
+              </TabPanel>
+            </Scrollbars>
+          );
+        })}
       </div>
     </div>
   );
