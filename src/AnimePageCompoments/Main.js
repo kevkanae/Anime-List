@@ -1,4 +1,4 @@
-import { useMainStyles } from "./MainStyles";
+import { useMainStyles } from "./Styles/MainStyles";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -7,7 +7,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { tabList } from "./Constants";
+import { tabList } from "./Constants/TabList";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,15 +45,27 @@ function a11yProps(index) {
 export default function MainComponent() {
   const classes = useMainStyles();
   const [value, setValue] = useState(0);
+  const [currentTab, setTab] = useState("tv");
+
   useEffect(() => {
-    const url = "https://api.jikan.moe/v3/top/anime/1/tv";
-    const token = "";
-    const config = { headers: { Authorization: `Bearer ${token}` } };
-    axios.all([]);
-    axios.get(url, config);
-  }, []);
+    const url = `https://api.jikan.moe/v3/top/anime/1/${currentTab}`;
+    console.log(url);
+    axios.get(url).then((res) => {
+      console.log(res.data["top"]);
+    });
+  }, [currentTab]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    newValue === 0
+      ? setTab("tv")
+      : newValue === 1
+      ? setTab("airing")
+      : newValue === 2
+      ? setTab("upcoming")
+      : newValue === 3
+      ? setTab("movie")
+      : setTab("bypopularity");
   };
 
   return (

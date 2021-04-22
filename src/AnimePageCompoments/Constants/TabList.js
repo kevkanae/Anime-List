@@ -9,9 +9,6 @@ export const tabList = [
     name: "Top Upcoming",
   },
   {
-    name: "Top Tv",
-  },
-  {
     name: "Top Movies",
   },
   {
