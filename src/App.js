@@ -1,5 +1,4 @@
-import './App.css';
-import MyAppBar from "./AppBar/AppBar";
+import MyAppBar from "./Components/AppBar";
 import {BrowserRouter, Route} from "react-router-dom";
 import AnimeComponent from "./Pages/Anime";
 import MangaComponent from "./Pages/Manga";

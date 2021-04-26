@@ -1,4 +1,4 @@
-import MainComponent from "../AnimePageCompoments/Main";
+import MainComponent from "../Components/Anime1"
 
 const AnimeComponent = () => {
     return (

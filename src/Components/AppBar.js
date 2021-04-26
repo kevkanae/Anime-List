@@ -1,4 +1,4 @@
-import { useAppBarStyles } from "./AppBarStyles";
+import { useAppBarStyles } from "../Styles/AppBarStyles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -39,7 +39,7 @@ const MyAppBar = () => {
                   }
                   className={classes.title}
                 >
-                  {!state.isChecked ? "A N I M E" : "M A N G A"}
+                  {!state.isChecked ? "A N I M E • アニメ" : "M A N G A • 漫画"}
                 </Typography>
               </div>
             </Link>
