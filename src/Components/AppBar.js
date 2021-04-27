@@ -6,16 +6,24 @@ import { Link, useHistory } from "react-router-dom";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { switchOn, switchOff } from "../Redux/Switcher";
 
 const MyAppBar = () => {
   const classes = useAppBarStyles();
   const history = useHistory();
+
+  const isSwitched = useSelector((state) => state.switcher.value);
+  const dispatch = useDispatch();
+
   const [state, setState] = useState({
     isChecked: false,
   });
   const handleChange = (event) => {
     event.target.checked ? history.push("/manga") : history.push("/");
-    setState({ ...state, [event.target.name]: event.target.checked });
+    // setState({ ...state, [event.target.name]: event.target.checked });
+    isSwitched ? dispatch(switchOff()) : dispatch(switchOn());
+    console.log(isSwitched);
   };
   return (
     <>
@@ -23,7 +31,7 @@ const MyAppBar = () => {
         <AppBar
           position={"sticky"}
           style={
-            !state.isChecked
+            !isSwitched
               ? { backgroundColor: "#f7d9d9" }
               : { backgroundColor: "#d3e0ea" }
           }
@@ -33,13 +41,11 @@ const MyAppBar = () => {
               <div className={classes.header}>
                 <Typography
                   style={
-                    !state.isChecked
-                      ? { color: "#f25287" }
-                      : { color: "#276678" }
+                    !isSwitched ? { color: "#f25287" } : { color: "#276678" }
                   }
                   className={classes.title}
                 >
-                  {!state.isChecked ? "A N I M E • アニメ" : "M A N G A • 漫画"}
+                  {!isSwitched ? "A N I M E • アニメ" : "M A N G A • 漫画"}
                 </Typography>
               </div>
             </Link>
@@ -52,15 +58,13 @@ const MyAppBar = () => {
                     classes={{
                       switchBase: classes.switchBase,
                     }}
-                    checked={state.isChecked}
+                    checked={isSwitched}
                     onChange={handleChange}
                     name="isChecked"
                   />
                 }
                 label="Manga"
-                style={
-                  !state.isChecked ? { color: "#f25287" } : { color: "#276678" }
-                }
+                style={isSwitched ? { color: "#f25287" } : { color: "#276678" }}
               />
             </div>
           </Toolbar>

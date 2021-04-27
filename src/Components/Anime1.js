@@ -1,10 +1,7 @@
 import { useMainStyles } from "../Styles/MainStyles";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import AppBar from "@material-ui/core/AppBar";
 import { tabList } from "../Constants/TabList";
-
-
 
 export default function MainComponent() {
   const classes = useMainStyles();
@@ -32,9 +29,5 @@ export default function MainComponent() {
       : setTab("bypopularity");
   };
 
-  return (
-    <div className={classes.main}>
-     
-    </div>
-  );
+  return <div className={classes.main}></div>;
 }
