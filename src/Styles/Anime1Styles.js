@@ -22,9 +22,6 @@ export const useMainStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-around",
   },
-  button: {
-    color: "#f25287",
-  },
   body: {
     height: "100%",
     width: "100%",
@@ -33,7 +30,7 @@ export const useMainStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
     alignItems: "center",
     padding: "3%",
-    backgroundColor: "#eeeeee",
+    backgroundColor: "white",
   },
   tile: {
     display: "flex",
@@ -50,6 +47,7 @@ export const useMainStyles = makeStyles((theme) => ({
     },
     margin: "2%",
     borderRadius: "10px",
+    // [theme.breakpoints.down("sm")]: {},
   },
   imageTag: {
     height: "100%",
