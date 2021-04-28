@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import { Link, useHistory } from "react-router-dom";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { switchOn, switchOff } from "../Redux/Switcher";
 
@@ -16,14 +15,9 @@ const MyAppBar = () => {
   const isSwitched = useSelector((state) => state.switcher.value);
   const dispatch = useDispatch();
 
-  const [state, setState] = useState({
-    isChecked: false,
-  });
   const handleChange = (event) => {
     event.target.checked ? history.push("/manga") : history.push("/");
-    // setState({ ...state, [event.target.name]: event.target.checked });
     isSwitched ? dispatch(switchOff()) : dispatch(switchOn());
-    console.log(isSwitched);
   };
   return (
     <>
