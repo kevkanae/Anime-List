@@ -1,8 +1,8 @@
 import MyAppBar from "./Components/AppBar";
 import { BrowserRouter, Route } from "react-router-dom";
-import AnimeComponent from "./Pages/Anime";
 import MangaComponent from "./Pages/Manga";
 import { useEffect } from "react";
+import AnimeComponent1 from "./Pages/Anime1";
 
 function App() {
   useEffect(() => {
@@ -12,7 +12,7 @@ function App() {
     <div>
       <BrowserRouter>
         <MyAppBar />
-        <Route exact path={"/"} component={AnimeComponent} />
+        <Route exact path={"/Anime-List"} component={AnimeComponent1} />
         <Route path={"/manga"} component={MangaComponent} />
       </BrowserRouter>
     </div>

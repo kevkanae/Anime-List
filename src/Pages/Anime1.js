@@ -7,7 +7,7 @@ import { tabList } from "../Constants/TabList";
 import { Scrollbars } from "react-custom-scrollbars";
 import { GiBarbedStar } from "react-icons/gi";
 
-export default function MainComponent() {
+export default function AnimeComponent1() {
   const classes = useMainStyles();
   const [isLoading, setLoading] = useState(true);
   const [currentTab, setTab] = useState("tv");

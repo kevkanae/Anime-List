@@ -16,7 +16,7 @@ const MyAppBar = () => {
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
-    event.target.checked ? history.push("/manga") : history.push("/");
+    event.target.checked ? history.push("/manga") : history.push("/Anime-List");
     isSwitched ? dispatch(switchOff()) : dispatch(switchOn());
   };
   return (
