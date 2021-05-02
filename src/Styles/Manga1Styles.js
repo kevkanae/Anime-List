@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export const useMainStyles = makeStyles((theme) => ({
+export const useMangaStyles = makeStyles((theme) => ({
   main: {
     height: "100%",
     width: "100%",
@@ -16,7 +16,7 @@ export const useMainStyles = makeStyles((theme) => ({
   },
   appbar: {
     color: "#f25287",
-    backgroundColor: "#fff2f2",
+    backgroundColor: "#d3dee6",
     height: "10vh",
     display: "flex",
     flexDirection: "row",

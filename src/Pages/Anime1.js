@@ -1,17 +1,21 @@
 import { useMainStyles } from "../Styles/Anime1Styles";
+import { useMobileStyles } from "../Styles/Anime1MobileStyles";
 import { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import Progress from "@material-ui/core/LinearProgress";
 import axios from "axios";
-import { tabList } from "../Constants/TabList";
+import { tabList } from "../Constants/AnimeTabList";
 import { Scrollbars } from "react-custom-scrollbars";
 import { GiBarbedStar } from "react-icons/gi";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 export default function AnimeComponent1() {
   const classes = useMainStyles();
+  const mobile = useMobileStyles();
   const [isLoading, setLoading] = useState(true);
   const [currentTab, setTab] = useState("tv");
   const [array, setAPIArray] = useState([]);
+  const screenWidth = useMediaQuery("(min-width:600px)");
 
   useEffect(() => {
     const url = `https://api.jikan.moe/v3/top/anime/1/${currentTab}`;
@@ -38,7 +42,7 @@ export default function AnimeComponent1() {
               <Button
                 onClick={handleChange}
                 value={data.val}
-                style={{ color: "#f25287" }}
+                className={classes.myButton}
                 key={index}
               >
                 {data.name}
@@ -54,30 +58,46 @@ export default function AnimeComponent1() {
               {array.map((data, index) => {
                 return (
                   <a key={index} href={data["url"]}>
-                    <div className={classes.tile}>
-                      <div className={classes.imageDiv}>
-                        <img
-                          className={classes.imageTag}
-                          src={data["image_url"]}
-                          alt={`${index}`}
-                        />
+                    {screenWidth ? (
+                      <div className={classes.tile}>
+                        <div className={classes.imageDiv}>
+                          <img
+                            className={classes.imageTag}
+                            src={data["image_url"]}
+                            alt={`${index}`}
+                          />
+                        </div>
+                        <div className={classes.details}>
+                          <h1 className={classes.title}>{data["title"]}</h1>
+                          <p>
+                            {data["type"]}({data["episodes"]} eps)
+                          </p>
+                          <p>
+                            {data["start_date"]} - {data["end_date"]}
+                          </p>
+                        </div>
+                        <div className={classes.score}>
+                          <span className={classes.star}>
+                            <GiBarbedStar />
+                          </span>{" "}
+                          <p className={classes.scoreP}>
+                            Score: {data["score"]}
+                          </p>
+                        </div>
                       </div>
-                      <div className={classes.details}>
-                        <h1 className={classes.title}>{data["title"]}</h1>
-                        <p>
-                          {data["type"]}({data["episodes"]} eps)
-                        </p>
-                        <p>
-                          {data["start_date"]} - {data["end_date"]}
-                        </p>
+                    ) : (
+                      // MOBILE - VIEW
+                      <div className={mobile.tile}>
+                        <div className={mobile.imageDiv}>
+                          <img
+                            className={mobile.imageTag}
+                            src={data["image_url"]}
+                            alt={`${index}`}
+                          />
+                        </div>
+                        <h1 className={mobile.title}>{data["title"]}</h1>
                       </div>
-                      <div className={classes.score}>
-                        <span className={classes.star}>
-                          <GiBarbedStar />
-                        </span>{" "}
-                        <p className={classes.scoreP}>Score: {data["score"]}</p>
-                      </div>
-                    </div>
+                    )}
                   </a>
                 );
               })}
