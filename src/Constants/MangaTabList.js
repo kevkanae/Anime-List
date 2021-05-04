@@ -1,4 +1,4 @@
-export const tabList = [
+export const mangaList = [
   {
     name: "All",
     val: "manga",

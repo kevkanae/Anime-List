@@ -1,4 +1,4 @@
-export const tabList = [
+export const animeList = [
   {
     name: "All",
     val: "tv",
