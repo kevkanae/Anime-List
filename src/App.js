@@ -1,4 +1,3 @@
-import { BrowserRouter, Route } from "react-router-dom";
 import { useEffect } from "react";
 import MyNavbar from "./Components/Navbar";
 import Home from "./Components/Home";
@@ -10,10 +9,8 @@ function App() {
 
   return (
     <div>
-      <BrowserRouter>
-        <MyNavbar />
-        <Route exact path="/" component={Home} />
-      </BrowserRouter>
+      <MyNavbar />
+      <Home />
     </div>
   );
 }

@@ -11,6 +11,7 @@ import { AiTwotoneStar } from "react-icons/ai";
 
 const Home = () => {
   const isSwitched = useSelector((state) => state.switcher.value);
+  const formText = useSelector((state) => state.searchData.value);
   const [isMobile] = useMediaQuery("(max-width: 600px)");
   const [constantList, setConstantList] = useState(
     !isSwitched ? animeList : mangaList
@@ -18,7 +19,7 @@ const Home = () => {
   const [apiData, setData] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [currentTab, setTab] = useState(!isSwitched ? "tv" : "manga");
-
+  console.log(formText);
   //---------------------------------------------------------------------------//
   useEffect(() => {
     if (!isSwitched) {
@@ -29,7 +30,7 @@ const Home = () => {
       setTab("manga");
     }
   }, [isSwitched]);
-  //---------------------------------------------------------------------------//
+
   useEffect(() => {
     const url = `https://api.jikan.moe/v3/top/${
       !isSwitched ? "anime" : "manga"
@@ -72,49 +73,53 @@ const Home = () => {
             </Flex>
           </Box>
           <Scrollbars style={{ width: "100%", height: "76vh" }}>
-            <Grid
-              className="list"
-              templateColumns={isMobile ? "repeat(1, 1fr)" : "repeat(2, 1fr)"}
-              gap={6}
-            >
-              {apiData.map((data, index) => {
-                return (
-                  <a href={data["url"]}>
-                    <Box
-                      className="tile"
-                      key={index}
-                      bg={!isSwitched ? "snow" : "azure"}
-                    >
-                      <Box className="image">
-                        <Image
-                          h="100%"
-                          w="100%"
-                          src={data["image_url"]}
-                          alt="Oops"
-                        />
-                      </Box>
-                      <Box className="details">
-                        <Box>
-                          <Text fontSize="md" fontWeight="bold">
-                            {data["title"]}
-                          </Text>
-                          <Text fontSize="sm">{data["type"]}</Text>
-                          <Text fontSize="sm">
-                            {data["start_date"]} - {data["end_date"]}
-                          </Text>
+            {!isLoading ? (
+              <Grid
+                className="list"
+                templateColumns={isMobile ? "repeat(1, 1fr)" : "repeat(2, 1fr)"}
+                gap={6}
+              >
+                {apiData.map((data, index) => {
+                  return (
+                    <a href={data["url"]}>
+                      <Box
+                        className="tile"
+                        key={index}
+                        bg={!isSwitched ? "snow" : "azure"}
+                      >
+                        <Box className="image">
+                          <Image
+                            h="100%"
+                            w="100%"
+                            src={data["image_url"]}
+                            alt="Oops"
+                          />
                         </Box>
+                        <Box className="details">
+                          <Box>
+                            <Text fontSize="md" fontWeight="bold">
+                              {data["title"]}
+                            </Text>
+                            <Text fontSize="sm">{data["type"]}</Text>
+                            <Text fontSize="sm">
+                              {data["start_date"]} - {data["end_date"]}
+                            </Text>
+                          </Box>
 
-                        <Box w="100%">
-                          <Text fontSize="sm">
-                            <AiTwotoneStar color="gold" /> {data["score"]}
-                          </Text>
+                          <Box w="100%">
+                            <Text fontSize="sm">
+                              <AiTwotoneStar color="gold" /> {data["score"]}
+                            </Text>
+                          </Box>
                         </Box>
                       </Box>
-                    </Box>
-                  </a>
-                );
-              })}
-            </Grid>
+                    </a>
+                  );
+                })}
+              </Grid>
+            ) : (
+              <center>Error</center>
+            )}
           </Scrollbars>
         </Box>
       </Box>

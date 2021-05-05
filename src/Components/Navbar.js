@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { switchOn, switchOff } from "../Redux/Switcher";
+import { setTextData } from "../Redux/SearchData";
 import "../Styles/NavbarStyles.css";
 import { BsSearch } from "react-icons/bs";
 import {
@@ -13,13 +14,18 @@ import {
   FormControl,
   Switch,
 } from "@chakra-ui/react";
+import { useState } from "react";
 
 const MyNavbar = () => {
   const isSwitched = useSelector((state) => state.switcher.value);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState("");
   const handleSwitch = (event) => {
     isSwitched ? dispatch(switchOff()) : dispatch(switchOn());
+  };
+  const sendFormData = () => {
+    dispatch(setTextData({ animeMangaSearch: formData }));
   };
 
   return (
@@ -36,12 +42,13 @@ const MyNavbar = () => {
               <Box className="inputGroup">
                 <InputGroup size="md">
                   <Input
+                    onChange={(e) => setFormData(e.target.value)}
                     type="text"
                     color={!isSwitched ? "#f25287" : "#3f3697"}
                     placeholder={!isSwitched ? "Search Anime" : "Search Manga"}
                   />
                   <InputRightElement>
-                    <Button>
+                    <Button onClick={sendFormData}>
                       <BsSearch color={!isSwitched ? "#f25287" : "#3f3697"} />
                     </Button>
                   </InputRightElement>
