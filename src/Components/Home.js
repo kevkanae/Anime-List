@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "../Styles/HomeStyles.css";
 import { useState, useEffect } from "react";
 import { animeList } from "../Constants/AnimeTabList";
@@ -7,11 +7,13 @@ import axios from "axios";
 import { Box, Flex, Text, Button, Grid, Image } from "@chakra-ui/react";
 import { Scrollbars } from "rc-scrollbars";
 import { useMediaQuery } from "@chakra-ui/react";
+import { setTextData } from "../Redux/SearchData";
 import { AiTwotoneStar } from "react-icons/ai";
 
 const Home = () => {
   const isSwitched = useSelector((state) => state.switcher.value);
   const formText = useSelector((state) => state.searchData.value);
+  const dispatch = useDispatch();
   const [isMobile] = useMediaQuery("(max-width: 600px)");
   const [constantList, setConstantList] = useState(
     !isSwitched ? animeList : mangaList
@@ -32,19 +34,34 @@ const Home = () => {
   }, [isSwitched]);
 
   useEffect(() => {
-    const url = `https://api.jikan.moe/v3/top/${
-      !isSwitched ? "anime" : "manga"
-    }/1/${currentTab}`;
-
-    axios
-      .get(url)
-      .then((res) => {
-        setData(res.data["top"]);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [currentTab, isSwitched]);
+    if (formText === null) {
+      axios
+        .get(
+          `https://api.jikan.moe/v3/top/${
+            !isSwitched ? "anime" : "manga"
+          }/1/${currentTab}`
+        )
+        .then((res) => {
+          setData(res.data["top"]);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      axios
+        .get(
+          `https://api.jikan.moe/v3/search/${
+            !isSwitched ? "anime" : "manga"
+          }?q=${formText}&page=1`
+        )
+        .then((res) => {
+          setData(res.data["results"]);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [currentTab, formText, isSwitched]);
   //---------------------------------------------------------------------------//
   const handleTabClick = (e) => {
     setTab(e.target.value);
@@ -56,20 +73,40 @@ const Home = () => {
         <Box className="body">
           <Box className="appbar" bg={!isSwitched ? "#f7d9d9" : "#d3e0ea"}>
             <Flex direction="row" align="center" justify="space-evenly">
-              {constantList.map((data, index) => {
-                return (
+              {formText === null ? (
+                constantList.map((data, index) => {
+                  return (
+                    <>
+                      <Button
+                        bg={!isSwitched ? "#f7d9d9" : "#d3e0ea"}
+                        color={!isSwitched ? "#f25287" : "#3f3697"}
+                        key={index}
+                        onClick={handleTabClick}
+                        value={data["val"]}
+                        className="tabs"
+                      >
+                        {data["name"]}
+                      </Button>
+                    </>
+                  );
+                })
+              ) : (
+                <>
+                  <Button className="tabs">
+                    Search Results For: {formText}
+                  </Button>
                   <Button
                     bg={!isSwitched ? "#f7d9d9" : "#d3e0ea"}
                     color={!isSwitched ? "#f25287" : "#3f3697"}
-                    key={index}
-                    onClick={handleTabClick}
-                    value={data["val"]}
+                    onClick={() =>
+                      dispatch(setTextData({ animeMangaSearch: null }))
+                    }
                     className="tabs"
                   >
-                    {data["name"]}
+                    Go Back
                   </Button>
-                );
-              })}
+                </>
+              )}
             </Flex>
           </Box>
           <Scrollbars style={{ width: "100%", height: "76vh" }}>
