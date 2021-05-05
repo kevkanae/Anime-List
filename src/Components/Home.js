@@ -84,6 +84,7 @@ const Home = () => {
                         onClick={handleTabClick}
                         value={data["val"]}
                         className="tabs"
+                        fontSize={isMobile ? "12px" : "md"}
                       >
                         {data["name"]}
                       </Button>

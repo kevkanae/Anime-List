@@ -9,22 +9,14 @@
 /*-----------------------------------*/
 .Box {
   padding: 1%;
-  height: 12vh;
   width: 100vw;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-.flex {
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
 /*-----------------------------------*/
 .rightBox {
-  width: 35%;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .inputGroup {
   width: "48%";
@@ -32,7 +24,6 @@
 .formControl {
   width: "28%";
 }
-/*-----------------------------------*/
 
 /*-----------------------------------*/
 /* Media Query */
