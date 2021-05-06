@@ -33,7 +33,7 @@ const MyNavbar = () => {
     <>
       <div className="main">
         <Box
-          h={isMobile ? "25vh" : "12vh"}
+          h={isMobile ? "25vh" : "15vh"}
           className="Box"
           bg={!isSwitched ? "#f7d9d9" : "#d3e0ea"}
         >
@@ -49,12 +49,12 @@ const MyNavbar = () => {
               </Text>
             </Box>
             <Box
-              flexDirection="column"
-              h="100%"
+              flexDirection={isMobile ? "column" : "row"}
+              h="90%"
               w={isMobile ? "100%" : "35%"}
               className="rightBox"
             >
-              <Box className="inputGroup">
+              <Box w="55%">
                 <InputGroup size="md">
                   <Input
                     onChange={(e) => setFormData(e.target.value)}
@@ -70,8 +70,8 @@ const MyNavbar = () => {
                 </InputGroup>
               </Box>
 
-              <Box className="formControl">
-                <FormControl display="flex" alignItems="center">
+              <Box w="25%">
+                <FormControl>
                   <Switch
                     size="lg"
                     colorScheme="messenger"

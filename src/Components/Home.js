@@ -9,6 +9,7 @@ import { Scrollbars } from "rc-scrollbars";
 import { useMediaQuery } from "@chakra-ui/react";
 import { setTextData } from "../Redux/SearchData";
 import { AiTwotoneStar } from "react-icons/ai";
+import React from "react";
 
 const Home = () => {
   const isSwitched = useSelector((state) => state.switcher.value);
@@ -76,11 +77,10 @@ const Home = () => {
               {formText === null ? (
                 constantList.map((data, index) => {
                   return (
-                    <>
+                    <React.Fragment key={index}>
                       <Button
                         bg={!isSwitched ? "#f7d9d9" : "#d3e0ea"}
                         color={!isSwitched ? "#f25287" : "#3f3697"}
-                        key={index}
                         onClick={handleTabClick}
                         value={data["val"]}
                         className="tabs"
@@ -88,11 +88,11 @@ const Home = () => {
                       >
                         {data["name"]}
                       </Button>
-                    </>
+                    </React.Fragment>
                   );
                 })
               ) : (
-                <>
+                <React.Fragment>
                   <Button className="tabs">
                     Search Results For: {formText}
                   </Button>
@@ -106,7 +106,7 @@ const Home = () => {
                   >
                     Go Back
                   </Button>
-                </>
+                </React.Fragment>
               )}
             </Flex>
           </Box>
@@ -119,12 +119,8 @@ const Home = () => {
               >
                 {apiData.map((data, index) => {
                   return (
-                    <a href={data["url"]}>
-                      <Box
-                        className="tile"
-                        key={index}
-                        bg={!isSwitched ? "snow" : "azure"}
-                      >
+                    <a key={index} href={data["url"]}>
+                      <Box className="tile" bg={!isSwitched ? "snow" : "azure"}>
                         <Box className="image">
                           <Image
                             h="100%"

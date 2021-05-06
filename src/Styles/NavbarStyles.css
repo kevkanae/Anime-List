@@ -18,13 +18,6 @@
   align-items: center;
   justify-content: space-evenly;
 }
-.inputGroup {
-  width: "48%";
-}
-.formControl {
-  width: "28%";
-}
-
 /*-----------------------------------*/
 /* Media Query */
 /*-----------------------------------*/
